@@ -2,13 +2,13 @@
 
 const path = require('path')
 const webpack = require('webpack')
-const validate = require('webpack-validator')
 
-module.exports = validate({
+module.exports = {
+  mode: 'development',
   devtool: 'source-map',
 
   entry: [
-    'react-hot-loader/patch',
+    'react-hot-loader/patch', './src',
     'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/only-dev-server',
     path.join(__dirname, 'src', 'index')
@@ -25,17 +25,20 @@ module.exports = validate({
   ],
 
   module: {
-    preLoaders: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-      include: /src/,
-      loader: 'standard'
-    }],
-    loaders: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-      include: /src/,
-      loader: 'babel'
-    }]
+    rules: [
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        exclude: /node_modules/,
+        include: /src/,
+        loader: 'standard-loader'
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        include: /src/,
+        loader: "babel-loader", // Do not use "use" here
+      }
+    ]
   }
-})
+}

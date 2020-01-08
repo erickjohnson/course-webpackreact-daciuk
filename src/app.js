@@ -1,9 +1,11 @@
 'use strict'
 import React from 'react'
-const App = React.createClass({
-  render: function () {
-    return <h1>Titulo13232521521</h1>
-  }
-})
+import { hot } from 'react-hot-loader'
 
-export default App
+class App extends React.Component {
+  render () {
+    return <h1>Titulo142</h1>
+  }
+}
+
+export default hot(module)(App)
